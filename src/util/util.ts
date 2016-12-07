@@ -10,53 +10,14 @@ export function clamp(min: number, n: number, max: number) {
   return Math.max(min, Math.min(n, max));
 }
 
-/**
- * The assign() method is used to copy the values of all enumerable own
- * properties from one or more source objects to a target object. It will
- * return the target object. When available, this method will use
- * `Object.assign()` under-the-hood.
- * @param target  The target object
- * @param source(s)  The source object
- */
-export function assign(...args: any[]): any {
-  if (typeof Object.assign !== 'function') {
-    // use the old-school shallow extend method
-    return _baseExtend(args[0], [].slice.call(args, 1), false);
-  }
-
-  // use the built in ES6 Object.assign method
-  return Object.assign.apply(null, args);
-}
 
 /**
- * Do a deep extend (merge).
- * @param dst the destination
- * @param ... the param objects
+ * Deep clone an object. Uses JSON stringify/parse under the hood.
  */
-export function merge(dst: any, ...args: any[]) {
-  return _baseExtend(dst, [].slice.call(arguments, 1), true);
+export function deepClone(obj: any) {
+  return JSON.parse(JSON.stringify(obj));
 }
 
-function _baseExtend(dst: any, objs: any, deep: boolean) {
-  for (var i = 0, ii = objs.length; i < ii; ++i) {
-    var obj = objs[i];
-    if (!obj || !isObject(obj) && !isFunction(obj)) continue;
-    var keys = Object.keys(obj);
-    for (var j = 0, jj = keys.length; j < jj; j++) {
-      var key = keys[j];
-      var src = obj[key];
-
-      if (deep && isObject(src)) {
-        if (!isObject(dst[key])) dst[key] = isArray(src) ? [] : {};
-        _baseExtend(dst[key], [src], true);
-      } else {
-        dst[key] = src;
-      }
-    }
-  }
-
-  return dst;
-}
 
 export function debounce(fn: Function, wait: number, immediate: boolean = false): any {
  var timeout: number, args: any, context: any, timestamp: number, result: any;

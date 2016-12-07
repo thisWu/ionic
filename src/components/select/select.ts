@@ -7,7 +7,7 @@ import { App } from '../app/app';
 import { Config } from '../../config/config';
 import { Form } from '../../util/form';
 import { Ion } from '../ion';
-import { isBlank, isCheckedProperty, isTrueProperty, merge } from '../../util/util';
+import { isBlank, isCheckedProperty, isTrueProperty, deepClone } from '../../util/util';
 import { Item } from '../item/item';
 import { NavController } from '../../navigation/nav-controller';
 import { Option } from '../option/option';
@@ -257,7 +257,7 @@ export class Select extends Ion implements AfterContentInit, ControlValueAccesso
     console.debug('select, open alert');
 
     // the user may have assigned some options specifically for the alert
-    let selectOptions = merge({}, this.selectOptions);
+    const selectOptions = deepClone(this.selectOptions);
 
     // make sure their buttons array is removed from the options
     // and we create a new array for the alert's two buttons
@@ -274,7 +274,7 @@ export class Select extends Ion implements AfterContentInit, ControlValueAccesso
       selectOptions.title = this._item.getLabelText();
     }
 
-    let options = this._options.toArray();
+    const options = this._options.toArray();
     if (this.interface === 'action-sheet' && options.length > 6) {
       console.warn('Interface cannot be "action-sheet" with more than 6 options. Using the "alert" interface.');
       this.interface = 'alert';
