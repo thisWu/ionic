@@ -5,7 +5,6 @@
 * @description
 * Config allows you to set the modes of your components
 */
-import { OpaqueToken } from '@angular/core';
 import { Platform } from '../platform/platform';
 import { QueryParams } from '../platform/query-params';
 import { isObject, isDefined, isFunction, isArray } from '../util/util';
@@ -391,18 +390,4 @@ export class Config {
     return this._trns[trnsName] || null;
   }
 
-}
-
-/**
- * @private
- */
-export const ConfigToken = new OpaqueToken('USERCONFIG');
-
-/**
- * @private
- */
-export function setupConfig(userConfig: any, queryParams: QueryParams, platform: Platform): Config {
-  const config = new Config();
-  config.init(userConfig, queryParams, platform);
-  return config;
 }

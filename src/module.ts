@@ -1,4 +1,4 @@
-import { ANALYZE_FOR_ENTRY_COMPONENTS, APP_INITIALIZER, Inject, ModuleWithProviders, NgModule, NgZone, Optional } from '@angular/core';
+import { ANALYZE_FOR_ENTRY_COMPONENTS, APP_INITIALIZER, Inject, ModuleWithProviders, NgModule, NgZone, OpaqueToken, Optional } from '@angular/core';
 import { APP_BASE_HREF, Location, LocationStrategy, HashLocationStrategy, PathLocationStrategy, PlatformLocation } from '@angular/common';
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -12,7 +12,7 @@ import { AlertController } from './components/alert/alert';
 import { App } from './components/app/app';
 import { AppRootToken } from './components/app/app-root';
 import { ClickBlock } from './util/click-block';
-import { Config, ConfigToken, setupConfig } from './config/config';
+import { Config } from './config/config';
 import { DeepLinker, setupDeepLinker } from './navigation/deep-linker';
 import { DomController } from './util/dom-controller';
 import { Events, setupProvideEvents } from './util/events';
@@ -52,7 +52,7 @@ import { ToastCmp } from './components/toast/toast-component';
 /**
  * Export Providers
  */
-export { Config, setupConfig, ConfigToken } from './config/config';
+export { Config } from './config/config';
 export { DomController } from './util/dom-controller';
 export { Platform, setupPlatform, UserAgentToken, DocumentDirToken, DocLangToken, NavigatorPlatformToken } from './platform/platform';
 export { Haptic } from './util/haptic';
@@ -241,3 +241,18 @@ export function provideDocumentDirection() {
 export function provideDocumentLang() {
   return document && document.documentElement.lang;
 }
+
+/**
+ * @private
+ */
+export const ConfigToken = new OpaqueToken('USERCONFIG');
+
+/**
+ * @private
+ */
+export function setupConfig(userConfig: any, queryParams: QueryParams, platform: Platform): Config {
+  const config = new Config();
+  config.init(userConfig, queryParams, platform);
+  return config;
+}
+
