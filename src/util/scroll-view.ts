@@ -1,9 +1,9 @@
 import { Subject } from 'rxjs/Subject';
 
 import { assert } from './util';
-import { CSS, nativeRaf, pointerCoord, rafFrames } from './dom';
+import { CSS, listenEvent, nativeRaf, pointerCoord, rafFrames } from './dom';
 import { DomController } from './dom-controller';
-import { eventOptions, listenEvent } from './ui-event-manager';
+import { eventOptions } from './ui-event-manager';
 
 
 export class ScrollView {

@@ -83,6 +83,17 @@ export function zoneRafFrames(framesToWait: number, callback: Function) {
   }
 }
 
+export function listenEvent(ele: any, eventName: string, zoneWrapped: boolean, option: any, callback: any): Function {
+  const rawEvent = (!zoneWrapped && !!ele.__zone_symbol__addEventListener);
+  if (rawEvent) {
+    ele.__zone_symbol__addEventListener(eventName, callback, option);
+    return () => ele.__zone_symbol__removeEventListener(eventName, callback, option);
+  }
+
+  ele.addEventListener(eventName, callback, option);
+  return () => ele.removeEventListener(eventName, callback, option);
+}
+
 export const CSS: {
   transform?: string,
   transition?: string,

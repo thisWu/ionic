@@ -7,7 +7,8 @@ import { Config } from '../../config/config';
 import { assert, runInDev } from '../../util/util';
 import { hasPointerMoved, pointerCoord } from '../../util/dom';
 import { RippleActivator } from './ripple';
-import { UIEventManager, PointerEvents, PointerEventType } from '../../util/ui-event-manager';
+import { UIEventManager } from '../../util/ui-event-manager';
+import { PointerEvents, PointerEventType } from '../../util/pointer-events';
 import { GestureController } from '../../gestures/gesture-controller';
 
 /**

@@ -1,7 +1,8 @@
 import { defaults, assert } from '../util/util';
 import { GestureDelegate } from '../gestures/gesture-controller';
 import { PanRecognizer } from './recognizers';
-import { PointerEvents, PointerEventsConfig, UIEventManager } from '../util/ui-event-manager';
+import { PointerEvents, PointerEventsConfig } from '../util/pointer-events';
+import { UIEventManager } from '../util/ui-event-manager';
 import { pointerCoord } from '../util/dom';
 import { DomDebouncer, DomController } from '../util/dom-controller';
 
